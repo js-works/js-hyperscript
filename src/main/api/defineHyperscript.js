@@ -4,7 +4,7 @@ const
     hyperscriptCache = {},
     simpleTagMark = {};
 
-export default function defineHyperscript({ createElement, isElement }) {
+export default function defineHyperscript({ createElement, isElement, classAlias = 'class' }) {
     return function (...args) {
         const tag = args[0];
 
@@ -76,9 +76,10 @@ export default function defineHyperscript({ createElement, isElement }) {
             } else {
                 const
                     attrs2 = {},
-                    className = attrs && attrs.class ? attrs.class : null,
                     hasProps = isAttrs(args[1]);
 
+                let className = attrs && attrs.class ? attrs.class : null;
+                
                 // This is faster then Object.assign
                 for (let i = 0; i < entries.length; ++i) {
                     const entry = entries[i];
@@ -88,8 +89,32 @@ export default function defineHyperscript({ createElement, isElement }) {
                 if (hasProps) {
                     Object.assign(attrs2, args[1]);
 
-                    if (className !== attrs2.class) {
-                        attrs2.class = `${className} ${attrs2.class}`;
+                    const 
+                        classVal1 = attrs2.class,
+                        classVal2 = attrs2[classAlias];
+
+                    if (classVal1 && classVal1 !== className) {
+                        if (!className) {
+                            className = classVal1;
+                        } else {
+                            className += ' ' + classVal1;
+                        }
+                    }
+
+                    if (classVal2 && classVal2 !== classVal1) {
+                        if (!className) {
+                            className = classVal2;
+                        } else {
+                            className += ' ' + classVal2; 
+                        }
+                    }
+
+                    if (className) {
+                        attrs2[classAlias] = className;
+                    }
+
+                    if (classAlias !== 'class' && attrs2.class !== undefined) {
+                        delete attrs2.class;
                     }
 
                     // Modifying args array is ugly but runs faster than other solutions
