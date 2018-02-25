@@ -103,9 +103,9 @@ const content =
 ### Plese compare the following HTML snippet with its *js-hyperscript* counterpart
 
 ```html
-<div className="box>
+<div className="box">
     <ul className="link-link">
-        <li className="primary>
+        <li className="primary">
             <a className="link" href="https://www.facebook.com">Facebook</a>
         </li>
         <li className="secondary">
