@@ -1,15 +1,14 @@
 {
   "name": "js-hyperscript",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "LGPL-3.0",
   "homepage": "https://github.com/js-works/js-hyperscript",
-  "main": "dist/js-hyperscript.min.js",
+  "main": "dist/",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "browserify": "^14.4.0",
     "chai": "^4.1.0",
-    "esdoc": "^0.5.2",
     "eslint": "^4.2.0",
     "mocha": "^3.4.2",
     "ngzip": "^1.1.3",
@@ -18,13 +17,24 @@
   },
   "scripts": {
     "clean": "node_modules/.bin/shx rm -rf ./build ./dist",
-    "compile": "npm run clean && \"node_modules/.bin/babel\" --presets es2015 -d build src/main/**/*.js",
-    "bundle": "npm run compile && \"node_modules/.bin/shx\" mkdir -p dist && \"node_modules/.bin/browserify\" build/src/main/js-hyperscript.js -x js-spec -s jsHyperscript -o dist/js-hyperscript.js",
-    "minimize": "npm run bundle && \"node_modules/.bin/uglifyjs\" dist/js-hyperscript.js -o dist/js-hyperscript.min.js --compress --mangle",
-    "compress": "npm run minimize && \"node_modules/.bin/ngzip\" -9 dist/js-hyperscript.min.js > dist/js-hyperscript.min.js.gz",
+    "compile": "node_modules/.bin/babel --presets es2015 -d build src/main/**/*.js",
+    "bundle-react": "node_modules/.bin/shx mkdir -p dist && \"node_modules/.bin/browserify\" build/src/main/__modules__/react.js -x react -s hyperscriptReact -o dist/react.js",
+    "minimize-react": "node_modules/.bin/uglifyjs dist/react.js -o dist/react.min.js --compress --mangle",
+    "compress-react": "node_modules/.bin/ngzip -9 dist/react.min.js > dist/react.min.js.gz",
+    "bundle-dio": "node_modules/.bin/shx mkdir -p dist && \"node_modules/.bin/browserify\" build/src/main/__modules__/dio.js -x dio.js -s hyperscriptDio -o dist/dio.js",
+    "minimize-dio": "node_modules/.bin/uglifyjs dist/dio.js -o dist/dio.min.js --compress --mangle",
+    "compress-dio": "node_modules/.bin/ngzip -9 dist/dio.min.js > dist/dio.min.js.gz",
+    "bundle-universal": "node_modules/.bin/shx mkdir -p dist && \"node_modules/.bin/browserify\" build/src/main/__modules__/universal.js -s hyperscriptUniversal -o dist/universal.js",
+    "minimize-universal": "node_modules/.bin/uglifyjs dist/universal.js -o dist/universal.min.js --compress --mangle",
+    "compress-universal": "node_modules/.bin/ngzip -9 dist/universal.min.js > dist/universal.min.js.gz",
+    "bundle": "npm run bundle-react && npm run bundle-dio && npm run bundle-universal",
+    "minimize": "npm run bundle & npm run minimize-react && npm run minimize-dio && npm run minimize-universal",
+    "compress": "npm run compress-react && npm run compress-dio && npm run compress-universal",
     "test": "node_modules/.bin/mocha --compilers babel-core/register src/test/**/*.js",
-    "xxdocs": "node_modules/.bin/shx rm -rf ./dist/docs && \"node_modules/.bin/cross-conf-env\" typedoc --options typedoc.json src/main/api/ -name \"js-hyperscript vnpm_package_version\"",
-    "docs": "node_modules/.bin/shx rm -rf ./dist/docs && \"node_modules/.bin/esdoc\" -c esdoc.json",
-    "all": "npm run compress && npm run test && npm run docs && \"node_modules/.bin/shx\" echo Finished successfully."
+    "all": "npm run clean && npm run compile && npm run bundle && npm run minimize && npm run compress && npm run test && \"node_modules/.bin/shx\" echo Finished successfully."
+  },
+  "dependencies": {
+    "dio.js": "^8.2.3",
+    "react": "^16.2.0"
   }
 }

@@ -1,0 +1,30 @@
+{
+  "name": "js-hyperscript",
+  "version": "0.1.1",
+  "license": "LGPL-3.0",
+  "homepage": "https://github.com/js-works/js-hyperscript",
+  "main": "dist/js-hyperscript.min.js",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "browserify": "^14.4.0",
+    "chai": "^4.1.0",
+    "esdoc": "^0.5.2",
+    "eslint": "^4.2.0",
+    "mocha": "^3.4.2",
+    "ngzip": "^1.1.3",
+    "shx": "^0.2.2",
+    "uglify-js": "^3.0.25"
+  },
+  "scripts": {
+    "clean": "node_modules/.bin/shx rm -rf ./build ./dist",
+    "compile": "npm run clean && \"node_modules/.bin/babel\" --presets es2015 -d build src/main/**/*.js",
+    "bundle": "npm run compile && \"node_modules/.bin/shx\" mkdir -p dist && \"node_modules/.bin/browserify\" build/src/main/js-hyperscript.js -x js-spec -s jsHyperscript -o dist/js-hyperscript.js",
+    "minimize": "npm run bundle && \"node_modules/.bin/uglifyjs\" dist/js-hyperscript.js -o dist/js-hyperscript.min.js --compress --mangle",
+    "compress": "npm run minimize && \"node_modules/.bin/ngzip\" -9 dist/js-hyperscript.min.js > dist/js-hyperscript.min.js.gz",
+    "test": "node_modules/.bin/mocha --compilers babel-core/register src/test/**/*.js",
+    "xxdocs": "node_modules/.bin/shx rm -rf ./dist/docs && \"node_modules/.bin/cross-conf-env\" typedoc --options typedoc.json src/main/api/ -name \"js-hyperscript vnpm_package_version\"",
+    "docs": "node_modules/.bin/shx rm -rf ./dist/docs && \"node_modules/.bin/esdoc\" -c esdoc.json",
+    "all": "npm run compress && npm run test && npm run docs && \"node_modules/.bin/shx\" echo Finished successfully."
+  }
+}
