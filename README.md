@@ -1,5 +1,5 @@
-# js-hypertext
-*js-hypertext* provides a helper function to simplfy the creation of virtual UI trees nodes.<br>
+# js-hyperscript
+*js-hyperscript* provides a helper function to simplfy the creation of virtual UI trees nodes.<br>
 It's a pure JavaScript alterative to JSX.
 
 Currently adapters for the following UI libraries are available:
