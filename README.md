@@ -6,6 +6,7 @@ Currently adapters for the following UI libraries are available:
 
 - React
 - DIO
+- js-surface
 
 Moreover, *js-hyperscript* also provides a adapter
 called "univeral" which generates library independent
