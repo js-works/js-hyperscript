@@ -7,8 +7,6 @@ export default function adaptHyperscriptFunction({
     Fragment = null,
     cache = {},
 }) {
-    const isDio = adapterName === 'dio';
-
     return (...args) => {
         let ret;
 
@@ -52,7 +50,7 @@ export default function adaptHyperscriptFunction({
             && firstArg.type
             && typeOfFirstArg === 'function') {
             
-                // Supporting factories etc.
+            // Supporting factories etc.
             args[0] = firstArg.type;
         }
 
