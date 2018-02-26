@@ -1,6 +1,6 @@
 # js-hyperscript
 *js-hyperscript* provides a helper function to simplfy the creation of virtual UI trees nodes.<br>
-It's a pure JavaScript alterative to JSX.
+It's a pure JavaScript alterative to JSX.<br>
 Many thanks to the teams of "react-hyperscript", "hiccups" and "reagent" for
 the inspiration.
 
