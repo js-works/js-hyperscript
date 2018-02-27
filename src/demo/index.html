@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <header>
         <script type="text/javascript" src="../../node_modules/babel-polyfill/dist/polyfill.min.js"></script>
@@ -9,6 +10,12 @@
 
                 transpiler: 'plugin-babel',
 
+                meta: {
+                    '*.js': {
+                        presets: ['es2017'],
+                    },
+                },
+
                 map: {
                     'plugin-babel': 'node_modules/systemjs-plugin-babel/plugin-babel.js',
                     'systemjs-babel-build': 'node_modules/systemjs-plugin-babel/systemjs-babel-browser.js',
@@ -16,9 +23,9 @@
                     'react': 'node_modules/react/umd/react.production.min.js',
                     'dio.js': 'node_modules/dio.js/dist/umd.min.js',
 
-                    'js-hyperscript/react': 'build/react.min.js',
-                    'js-hyperscript/dio': 'build/dio.min.js',
-                    'js-hyperscript/universal': 'build/universal.min.js'
+                    'js-hyperscript/react': 'build/react.js',
+                    'js-hyperscript/dio': 'build/dio.js',
+                    'js-hyperscript/universal': 'build/universal.js'
                 }
             })
             

@@ -1,6 +1,6 @@
 {
   "name": "js-hyperscript",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "license": "LGPL-3.0",
   "homepage": "https://github.com/js-works/js-hyperscript",
   "main": "dist/",
@@ -21,7 +21,6 @@
     "webpack-dev-server": "^3.0.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --open",
     "serve": "http-server -c-1",
     "build": "webpack",
     "watch": "webpack --watch"

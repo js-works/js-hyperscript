@@ -105,41 +105,15 @@ for (const { name, createElement, hyperscript } of adapters) {
     testGroups.push(tests);
 }
 
-/*
-testGroups.push([
-    {
-        displayName: '[React] Using "react-hyperscript" (variant 1)',
+let stdDuration;
 
-        run() {
-            for (let i = 0; i < iterationCount; ++i) {
-                h('div', { id: 'my-id', className: 'my-class' }, [
-                    h('div', { id: '#my-id2', className: 'my-class2' }, ['my-div'])
-                ]);
-            }
-        }
-    },
-    
-    {
-        displayName: '[React] Using "react-hyperscript" (variant 2)',
+for (let i = 0; i < testGroups.length; ++i) {
+    const tests = testGroups[i];
 
-        run() {
-            for (let i = 0; i < iterationCount; ++i) {
-                h('#my-id.my-class', [
-                    h('div#my-id2.my-class2', [ 'my-div'])
-                ]);
-            }
-        }
-    }
-]);
-*/
-
-setTimeout(() => {
-    for (const tests of testGroups) {
-        let stdDuration;
-
-        for (let i = 0; i < tests.length; ++i) {
+    for (let j = 0; j < tests.length; ++j) {
+        setTimeout(() => {
             const
-                test = tests[i],
+                test = tests[j],
                 startTime = Date.now();
             
             test.run();
@@ -148,22 +122,30 @@ setTimeout(() => {
                 stopTime = Date.now(),
                 duration = (stopTime - startTime);
 
-            if (i === 0) {
+            if (j === 0) {
                 stdDuration = duration;
             }
             
             const durationInfo =
                 duration + ' ms => '
-                    + (duration / stdDuration).toFixed(2) + '%';
+                    + (duration / stdDuration * 100).toFixed() + '%';
 
             const message = `Run time for test '${test.displayName}': ${durationInfo}`;
 
             report += '<br/>' + message;
-        }
-        
-        report += '<br/>';
-    }
+            
+            if (j === tests.length -1) {
+                if (i === testGroups.length - 1) {
+                    report += '<br/><br/>All tests finished.';
+                } else {
+                    report += '<br/>';
+                }
+            }
 
-    report += '<br/><br/>All tests finished.';
-    contentContainer.innerHTML = report;
-}, 100);
+            contentContainer.innerHTML = '';
+            const div = document.createElement('div');
+            div.innerHTML = report;
+            contentContainer.appendChild(div);
+        }, 10);
+    }
+}
