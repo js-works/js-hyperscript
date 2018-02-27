@@ -9,8 +9,7 @@ module.exports = {
         react: './src/main/__modules__/react.js',
         dio: './src/main/__modules__/dio.js',
         surface: './src/main/__modules__/surface.js',
-        universal: './src/main/__modules__/universal.js',
-        //demo: './src/demo/demo.js'
+        universal: './src/main/__modules__/universal.js'
     },
 
     output: {
