@@ -82,5 +82,18 @@ module.exports = {
                 amd: 'js-surface'
             }
         }
-    ]
+    ],
+
+    module: {
+        rules: [{
+            test: /\.js$/,
+            use: {
+                loader: 'babel-loader',
+
+                options: {
+                    presets: ['babel-preset-env']
+                }
+            }
+        }]
+    }
 };

@@ -6,17 +6,17 @@ import parseHyperscript from './parseHyperscript';
 // Nice code structure, code reuse, adapter patterns are not really used
 // here as that would cost some performance.
 
-const isEdge =
+const isIEOrEdge =
     typeof window === 'object'
-        && window && 'msCredentials' in window && !!window.chrome;
+        && !!window
+        && ('ActiveXObject' in window || 'msCredentials' in window && !!window.chrome);
 
 export default function adaptHyperscriptFunction({
     createElement,
     isElement,
-    adapterName,
     Fragment = null,
     cache = {},
-    optimizeForEdge = isEdge
+    optimizeForIEAndEdge = isIEOrEdge
 }) {
     function hyperscript() {
         let 
@@ -159,9 +159,9 @@ export default function adaptHyperscriptFunction({
         }
 
         return ret;
-    };
+    }
 
-    function hyperscriptForEdge () {
+    function hyperscriptForIEAndEdge () {
         let 
             ret,
             args,
@@ -298,7 +298,7 @@ export default function adaptHyperscriptFunction({
         }
 
         return ret;
-    };
+    }
 
-    return optimizeForEdge ? hyperscriptForEdge : hyperscript;
+    return optimizeForIEAndEdge ? hyperscriptForIEAndEdge : hyperscript;
 }

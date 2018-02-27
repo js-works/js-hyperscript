@@ -6,7 +6,7 @@ import hyperscriptDio from 'js-hyperscript/dio';
 import hyperscriptUniversal from 'js-hyperscript/universal';
 
 const
-    iterationCount = 200000,
+    iterationCount = 20000,
     contentContainer = document.getElementById('content'),
 
     adapters = [
