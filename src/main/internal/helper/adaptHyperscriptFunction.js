@@ -5,7 +5,7 @@ export default function adaptHyperscriptFunction({
     isElement,
     adapterName,
     Fragment = null,
-    cache = {},
+    cache = {}
 }) {
     return (...args) => {
         let ret;

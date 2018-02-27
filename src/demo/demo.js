@@ -25,33 +25,14 @@ const
         {
             name: 'universal',
             
-            createElement: function () {
+            createElement: function (...args) {
                 const
-                    argCount = arguments.length,
-                    type = arguments[0],
-                    props = arguments[1],
+                    argCount = args.length,
+                    type = args[0],
+                    props = args[1],
                     children = new Array(argCount - 2);
 
                 for (let i = 2; i < argCount; ++i) {
-                    children[i - 2] = arguments[i];
-                }
-
-                return {
-                    type,
-                    props,
-                    children,
-                    isElement: true
-                };
-            },
-
-/*
-            createElement: (...args) => {
-                const
-                    type = args[0],
-                    props = args[1],
-                    children = new Array(args.length - 2);
-
-                for (let i = 2; i < args.length; ++i) {
                     children[i - 2] = args[i];
                 }
 
@@ -62,17 +43,6 @@ const
                     isElement: true
                 };
             },
-*/
-/*
-            createElement: (type, props, ...children) => {
-                return {
-                    type,
-                    props,
-                    children,
-                    isElement: true
-                }
-            },
-*/
 
             hyperscript: hyperscriptUniversal
         }
@@ -165,16 +135,28 @@ testGroups.push([
 
 setTimeout(() => {
     for (const tests of testGroups) {
-        for (const test of tests) {
-            const startTime = Date.now();
+        let stdDuration;
+
+        for (let i = 0; i < tests.length; ++i) {
+            const
+                test = tests[i],
+                startTime = Date.now();
             
             test.run();
 
             const
                 stopTime = Date.now(),
-                duration = (stopTime - startTime) + ' ms';
+                duration = (stopTime - startTime);
 
-            const message = `Run time for test '${test.displayName}': ${duration}`;
+            if (i === 0) {
+                stdDuration = duration;
+            }
+            
+            const durationInfo =
+                duration + ' ms => '
+                    + (duration / stdDuration).toFixed(2) + '%';
+
+            const message = `Run time for test '${test.displayName}': ${durationInfo}`;
 
             report += '<br/>' + message;
         }
