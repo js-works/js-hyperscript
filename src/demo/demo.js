@@ -6,7 +6,7 @@ import hyperscriptDio from 'js-hyperscript/dio';
 import hyperscriptUniversal from 'js-hyperscript/universal';
 
 const
-    iterationCount = 500000,
+    iterationCount = 200000,
     contentContainer = document.getElementById('content'),
 
     adapters = [
@@ -80,7 +80,7 @@ const
 
     testGroups = [];
 
-contentContainer.innerHTML = 'Please wait - performance stests are running ...';
+contentContainer.innerHTML = 'Please wait - performance tests are running ...';
 
 let report = `<b>User agent: "${navigator.userAgent}</b><br/>`;
 
