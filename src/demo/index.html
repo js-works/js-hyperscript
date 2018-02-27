@@ -1,0 +1,38 @@
+<html>
+    <header>
+        <script type="text/javascript" src="../../node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+        <script src="../../node_modules/systemjs/dist/system.js"></script>
+
+        <script>
+            System.config({
+                baseURL: '../..',
+
+                transpiler: 'plugin-babel',
+
+                map: {
+                    'plugin-babel': 'node_modules/systemjs-plugin-babel/plugin-babel.js',
+                    'systemjs-babel-build': 'node_modules/systemjs-plugin-babel/systemjs-babel-browser.js',
+
+                    'react': 'node_modules/react/umd/react.production.min.js',
+                    'dio.js': 'node_modules/dio.js/dist/umd.min.js',
+
+                    'js-hyperscript/react': 'build/react.min.js',
+                    'js-hyperscript/dio': 'build/dio.min.js',
+                    'js-hyperscript/universal': 'build/universal.min.js'
+                }
+            })
+            
+            System.import('../../src/demo/demo.js');
+        </script>
+
+        <style>
+            body {
+                font-family: Arial, Helvetica, 'sans-serif';
+                font-size: 13px;
+            }
+        </style>
+    </header>
+    <body>
+        <div id="content"></div>
+    </body>
+</html>
