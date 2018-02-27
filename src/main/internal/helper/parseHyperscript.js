@@ -23,7 +23,9 @@ export default function parseHyperscript(
 
     let ret = [];
 
-    for (let item of items) {
+    for (let i = 0; i < items.length; ++i) {
+        const item = items[i];
+
         if (item === null) {
             ret = null;
             break;
@@ -36,8 +38,8 @@ export default function parseHyperscript(
 
         ret.push(meta);
 
-        for (let i = 0; i < item.length; ++i) {
-            const it = item[i];
+        for (let j = 0; j < item.length; ++j) {
+            const it = item[j];
         
             switch (it[0]) {
             case '#': {
