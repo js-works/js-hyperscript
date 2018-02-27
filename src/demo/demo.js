@@ -25,15 +25,15 @@ const
         {
             name: 'universal',
             
-            createElement: function (...args) {
+            createElement: function () {
                 const
-                    argCount = args.length,
-                    type = args[0],
-                    props = args[1],
+                    argCount = arguments.length,
+                    type = arguments[0],
+                    props = arguments[1],
                     children = new Array(argCount - 2);
 
                 for (let i = 2; i < argCount; ++i) {
-                    children[i - 2] = args[i];
+                    children[i - 2] = arguments[i];
                 }
 
                 return {

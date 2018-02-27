@@ -61,7 +61,8 @@ export default function adaptHyperscriptFunction({
             type = firstArg.type;
         }
 
-        if (hyperscriptRecords.length === 1 && lastHyperscriptRecord.props === null && !skippedProps) {
+        // TODO - see "false" in next line
+        if (false && hyperscriptRecords.length === 1 && lastHyperscriptRecord.props === null && !skippedProps) {
             ret = createElement.apply(undefined, arguments);
         } else {
             if (!skippedProps) {
