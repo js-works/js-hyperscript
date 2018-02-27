@@ -15,7 +15,7 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: '[name].min.js',
+        filename: '[name].js',
         library: ['jsHypertext', '[name]'],
         libraryTarget: 'umd'
     },
