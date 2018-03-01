@@ -68,7 +68,11 @@ export default function adaptHyperscriptFunction({
             type = firstArg.type;
         }
 
-        if (hyperscriptRecords.length === 1 && lastHyperscriptRecord.props === null && !skippedProps) {
+        if (!skippedProps
+            && (!firstArgIsString ||
+                hyperscriptRecords.length === 1
+                    && lastHyperscriptRecord.props === null)) {
+            
             ret = createElement.apply(undefined, arguments);
         } else {
             if (!skippedProps) {
