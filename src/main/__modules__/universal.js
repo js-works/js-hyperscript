@@ -5,7 +5,6 @@ const hyperscriptCache = {};
 export default function hyperscript() {
     let 
         ret,
-        args,
         type = arguments[0],
         props = null,
         children = null,
@@ -143,7 +142,7 @@ export default function hyperscript() {
                     props: data.props,
                     children: [ret],
                     isElement: true
-                }
+                };
             }
         }
     }

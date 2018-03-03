@@ -1,9 +1,0 @@
-{
-  "title": "js-messages",
-  "source": "./src",
-  "destination": "./dist/docs/api",
-  "test": {
-    "type": "mocha",
-    "source": "./src/test"
-  }
-}

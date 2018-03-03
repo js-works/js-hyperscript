@@ -1,9 +1,4 @@
-import adaptHyperscriptFunction from '../internal/helper/adaptHyperscriptFunction';
-import { createElement, isElement } from 'js-surface';
+import { createElement } from 'js-surface';
 
-export default adaptHyperscriptFunction({
-    createElement: createElement,
-    isElement: isElement,
-    Fragment: null,
-    adapterName: 'surface'
-});
+// js-surface "createElement" function is already supporting hyperscript
+export default createElement; 

@@ -14,7 +14,6 @@ const isIEOrEdge =
 export default function adaptHyperscriptFunction({
     createElement,
     isElement,
-    Fragment = null,
     cache = {},
     optimizeForIEAndEdge = isIEOrEdge
 }) {
@@ -57,8 +56,6 @@ export default function adaptHyperscriptFunction({
                 hyperscriptRecords[hyperscriptRecords.length - 1];
 
             type = lastHyperscriptRecord.tag;
-        } else if (firstArg === null && Fragment) {
-            type = Fragment;
         } else if (!firstArgIsString
             && firstArg
             && firstArg.type
@@ -204,8 +201,6 @@ export default function adaptHyperscriptFunction({
                 hyperscriptRecords[hyperscriptRecords.length - 1];
 
             type = lastHyperscriptRecord.tag;
-        } else if (firstArg === null && Fragment) {
-            type = Fragment;
         } else if (!firstArgIsString
             && firstArg
             && firstArg.type
