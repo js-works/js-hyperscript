@@ -10,11 +10,20 @@ Currently adapters for the following UI libraries are available:
 - DIO
 - js-surface
 
-Moreover, *js-hyperscript* also provides a adapter
-called "univeral" which generates library independent
+Moreover, *js-hyperscript* also provides two other adapters
+called "common" and "univeral" which generates library independent
 virutal UI elements (which is only useful in very special
 cases where you need your own UI component tree, independent of any other UI library):
 
+#### common
+```javascript
+{
+    type: ....,
+    props: { ... },  // or null, children will be provided directly in props
+}
+```
+
+#### universal
 ```javascript
 {
     type: ....,
@@ -47,13 +56,16 @@ is to provide some examples - here they are:
 
 ```javascript
 // If you want to use js-hyperscript for React or React Native
-import h from 'js-hyperscript/react';
+import { hyperscript as h } from 'js-hyperscript/react';
 
 // If you want to use js-hyperscript for DIO 
-import h from 'js-hyperscript/dio';
+import { hyperscript as h } from 'js-hyperscript/dio';
+
+// If you want to use js-hyperscript to generate common UI elements
+import { hyperscript as h } from 'js-hyperscript/common';
 
 // If you want to use js-hyperscript to generate universal UI elements
-import h from 'js-hyperscript/universal';
+import { hyperscript as h } from 'js-hyperscript/universal';
 ```
 
 ### Using the original syntax of React's createElement

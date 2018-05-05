@@ -2,7 +2,7 @@ import parseHyperscript from '../internal/helper/parseHyperscript';
 
 const hyperscriptCache = {};
 
-export function hyperscript() {
+function hyperscript() {
     let 
         ret,
         type = arguments[0],
@@ -22,7 +22,9 @@ export function hyperscript() {
             secondArg !== undefined && secondArg !== null
                 && (typeof secondArg !== 'object'
                     || secondArg[Symbol.iterator]
-                    || secondArg.isElement === true);
+                    || secondArg.isElement === true),
+        
+        hasChildren = argCount === 2 && skippedProps || argCount > 2;
 
     if (firstArgIsString) {
         hyperscriptRecords = hyperscriptCache[firstArg];
@@ -53,14 +55,14 @@ export function hyperscript() {
     if (!skippedProps) {
         props = arguments[1];
 
-        if (argCount > 2) {
+        if (hasChildren) {
             children = Array(argCount - 2);
 
             for (let i = 2; i < argCount; ++i) {
                 children[i - 2] = arguments[i];
             }
         }
-    } else if (argCount > 1) {
+    } else if (hasChildren) {
         children = Array(argCount - 1);
         
         for (let i = 1; i < argCount; ++i) {
@@ -126,23 +128,53 @@ export function hyperscript() {
             }
         }
 
-        ret = {
-            type,
-            props,
-            children,
-            isElement: true
-        };
+        if (children) {
+            if (props === null) {
+                props = { children };
+            } else if (skippedProps || props !== secondArg) {
+                props.children = children;
+            } else {
+                const
+                    baseProps = props,
+                    keys = Object.keys(baseProps);
+
+                props = {};
+
+                for (let i = 0; i < keys.length; ++i) {
+                    const key = keys[i];
+
+                    props[key] = baseProps[key];
+                }
+
+                props.children = children;
+            }
+        }
+
+        ret = new UIElement(type, props);
 
         if (hyperscriptRecords && hyperscriptRecords.length > 1) {
             for (let i = hyperscriptRecords.length - 2; i >= 0; --i) {
-                const data = hyperscriptRecords[i];
+                const
+                    data = hyperscriptRecords[i],
+                    dataProps = data.props;
 
-                ret = {
-                    type: data.tag,
-                    props: data.props,
-                    children: [ret],
-                    isElement: true
-                };
+                let props = {};
+
+                if (dataProps) {
+                    const entries = data.entries;
+
+                    props = {};
+
+                    for (let j = 0; j < entries.length; ++j) {
+                        const entry = entries[j];
+
+                        props[entry[0]] = entry[1];
+                    }
+                }
+
+                props.children = [ret];
+
+                ret = new UIElement(data.tag, props);
             }
         }
     }
@@ -150,12 +182,15 @@ export function hyperscript() {
     return ret;
 }
 
-export function isElement(it) {
-    const typeOfType =
-        it !== null && typeof it === 'object' && it.isElement === true && it.type
-            ? typeof it.type
-            : null;
-
-    return typeOfType !== null
-        && (typeOfType === 'string' || typeOfType === 'function');
+function isElement(it) {
+    return it instanceof UIElement;
 }
+
+class UIElement {
+    constructor(type, props) {
+        this.type = type;
+        this.props = props;
+    }
+}
+
+export { hyperscript, isElement };

@@ -1,9 +1,10 @@
 import React from 'react';
 import dio from 'dio.js';
 
-import hyperscriptReact from 'js-hyperscript/react';
-import hyperscriptDio from 'js-hyperscript/dio';
-import hyperscriptUniversal from 'js-hyperscript/universal';
+import { hyperscript as hyperscriptReact} from 'js-hyperscript/react';
+import { hyperscript as hyperscriptDio } from 'js-hyperscript/dio';
+import { hyperscript as hyperscriptCommon } from 'js-hyperscript/common';
+import { hyperscript as hyperscriptUniversal } from 'js-hyperscript/universal';
 
 const
     iterationCount = 20000,
@@ -20,6 +21,31 @@ const
             name: 'DIO',
             createElement: dio.createElement,
             hyperscript: hyperscriptDio
+        },
+
+        {
+            name: 'common',
+            
+            createElement: function () {
+                const
+                    argCount = arguments.length,
+                    type = arguments[0],
+                    props = arguments[1],
+                    children = new Array(argCount - 2);
+
+                for (let i = 2; i < argCount; ++i) {
+                    children[i - 2] = arguments[i];
+                }
+
+                return {
+                    type,
+                    props,
+                    children,
+                    isElement: true
+                };
+            },
+
+            hyperscript: hyperscriptCommon
         },
 
         {
