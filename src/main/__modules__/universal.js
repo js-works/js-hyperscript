@@ -151,11 +151,5 @@ export function hyperscript() {
 }
 
 export function isElement(it) {
-    const typeOfType =
-        it !== null && typeof it === 'object' && it.isElement === true && it.type
-            ? typeof it.type
-            : null;
-
-    return typeOfType !== null
-        && (typeOfType === 'string' || typeOfType === 'function');
+    return it !== null && typeof it === 'object' && it.isElement === true;
 }
