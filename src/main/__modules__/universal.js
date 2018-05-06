@@ -2,7 +2,7 @@ import parseHyperscript from '../internal/helper/parseHyperscript';
 
 const hyperscriptCache = {};
 
-export function hyperscript() {
+export default function hyperscript() {
     let 
         ret,
         type = arguments[0],
@@ -148,8 +148,4 @@ export function hyperscript() {
     }
 
     return ret;
-}
-
-export function isElement(it) {
-    return it !== null && typeof it === 'object' && it.isElement === true;
 }

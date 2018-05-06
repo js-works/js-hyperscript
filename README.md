@@ -56,16 +56,16 @@ is to provide some examples - here they are:
 
 ```javascript
 // If you want to use js-hyperscript for React or React Native
-import { hyperscript as h } from 'js-hyperscript/react';
+import h from 'js-hyperscript/react';
 
 // If you want to use js-hyperscript for DIO 
-import { hyperscript as h } from 'js-hyperscript/dio';
+import h from 'js-hyperscript/dio';
 
 // If you want to use js-hyperscript to generate common UI elements
-import { hyperscript as h } from 'js-hyperscript/common';
+import h from 'js-hyperscript/common';
 
 // If you want to use js-hyperscript to generate universal UI elements
-import { hyperscript as h } from 'js-hyperscript/universal';
+import h from 'js-hyperscript/universal';
 ```
 
 ### Using the original syntax of React's createElement

@@ -9,7 +9,6 @@ module.exports = {
         react: './src/main/__modules__/react.js',
         dio: './src/main/__modules__/dio.js',
         surface: './src/main/__modules__/surface.js',
-        common: './src/main/__modules__/common.js',
         universal: './src/main/__modules__/universal.js'
     },
 
@@ -52,7 +51,6 @@ module.exports = {
             'js-hyperscript/react': true,
             'js-hyperscript/dio': true,
             'js-hyperscript/surface': true,
-            'js-hyperscript/common': true,
             'js-hyperscript/universal': true,
 
             'react': {
