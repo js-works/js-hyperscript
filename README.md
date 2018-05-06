@@ -15,14 +15,6 @@ called "common" and "univeral" which generates library independent
 virutal UI elements (which is only useful in very special
 cases where you need your own UI component tree, independent of any other UI library):
 
-#### common
-```javascript
-{
-    type: ....,
-    props: { ... },  // or null, children will be provided directly in props
-}
-```
-
 #### universal
 ```javascript
 {
@@ -60,9 +52,6 @@ import h from 'js-hyperscript/react';
 
 // If you want to use js-hyperscript for DIO 
 import h from 'js-hyperscript/dio';
-
-// If you want to use js-hyperscript to generate common UI elements
-import h from 'js-hyperscript/common';
 
 // If you want to use js-hyperscript to generate universal UI elements
 import h from 'js-hyperscript/universal';

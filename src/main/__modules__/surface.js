@@ -1,6 +1,6 @@
 import parseHyperscript from '../internal/helper/parseHyperscript';
 
-import { createElement } from 'js-surface';
+import { createElement, isElement } from 'js-surface';
 
 const hyperscriptCache = {};
 
@@ -24,7 +24,7 @@ export default function hyperscript() {
             secondArg !== undefined && secondArg !== null
                 && (typeof secondArg !== 'object'
                     || secondArg[Symbol.iterator]
-                    || secondArg.isElement === true),
+                    || isElement(secondArg)),
         
         hasChildren = argCount === 2 && skippedProps || argCount > 2;
 
@@ -75,7 +75,22 @@ export default function hyperscript() {
     if (!skippedProps
         && (!firstArgIsString
             || (hyperscriptRecords.length === 1 && !lastHyperscriptRecord.props))) {
-        
+       
+        if (children && props) {
+            const
+                keys = Object.keys(props),
+                newProps = {};
+
+            for (let i = 0; i < keys.length; ++i) {
+                const key = keys[i];
+
+                newProps[key] = props[key];
+            }
+
+            newProps.children = children;
+
+            ret = createElement(type, newProps);
+        }
         ret = {
             type,
             props,
